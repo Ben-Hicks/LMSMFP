@@ -56,7 +56,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b932a25f439207e47bdd61990b1e93e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  arnLevelsPerWorld: 00000000080000000800000008000000
+  arnLevelsPerWorld: 00000000080000000a00000008000000
   iLevelSelect: 0
   iCurWorld: 0
   iCurScene: 0

@@ -21,8 +21,10 @@ public class ContFollowingCamera : ContCamera {
 
     public float fMaxFocusSpeedX;
     public float fMaxFocusSpeedY;
+    public float fMinFocusDistance; //Distance under which we stop moving the camera to further center the target
 
     public float fScrollSpeed;
+
 
     public Vector2 v2BotLeftBoundary {
         get {
@@ -102,6 +104,9 @@ public class ContFollowingCamera : ContCamera {
         }
         
         Vector3 v3DesiredCamera = new Vector3(transform.position.x + fDesiredCameraX, transform.position.y + fDesiredCameraY, transform.position.z);
+
+        if (Vector3.Distance(v3DesiredCamera, transform.position) < fMinFocusDistance) return;
+
         transform.position = v3DesiredCamera;
 
     }
