@@ -23,10 +23,10 @@ public class Fly : MonoBehaviour
     void Start()
     {
         count = 0.0f;
-        boundaryLeft = transform.position.x - fRoamingDistance;
-        boundaryRight = transform.position.x + fRoamingDistance;
-        boundaryUp = transform.position.y + fRoamingDistance;
-        boundaryDown = transform.position.y - fRoamingDistance;
+        boundaryLeft =  - fRoamingDistance;
+        boundaryRight =  fRoamingDistance;
+        boundaryUp = fRoamingDistance;
+        boundaryDown = - fRoamingDistance;
 
         fCurSegmentTime = Random.Range(fMinSegmentTime, fMaxSegmentTime);
 
@@ -53,7 +53,7 @@ public class Fly : MonoBehaviour
     }
 
     void DefinePoints() {
-        point[0] = goFlySprite.transform.position;
+        point[0] = goFlySprite.transform.localPosition;
 
         point[1] = point[2];
 
@@ -73,7 +73,7 @@ public class Fly : MonoBehaviour
 
         m1 = Vector3.Lerp(point[0], point[1], fProgress);
         m2 = Vector3.Lerp(point[1], point[2], fProgress);
-        goFlySprite.transform.position = Vector3.Lerp(m1, m2, fProgress);
+        goFlySprite.transform.localPosition = Vector3.Lerp(m1, m2, fProgress);
         
     }
 }

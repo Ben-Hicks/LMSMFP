@@ -8,7 +8,6 @@ public class Collectable : MonoBehaviour {
 
     private void Despawn() {
 
-        //Currently, just moving the object offscreen
         Destroy(gameObject);
 
     }

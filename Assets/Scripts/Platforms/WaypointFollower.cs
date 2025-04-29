@@ -11,9 +11,9 @@ public class WaypointFollower : MonoBehaviour {
     public Waypoint[] arWaypoint;
     public int iCurWaypoint;
 
-    public GameObject goPlatform;
-    public Platform platform;
-    public Rigidbody2D rbPlatform;
+    public GameObject goFollower;
+    public NonPhysicsMoveable nonphysicsmoveable;
+    public Rigidbody2D rbFollower;
 
     public bool bMoving;
 
@@ -21,24 +21,21 @@ public class WaypointFollower : MonoBehaviour {
     private float fCurTime;
     private Vector3 v3StartPos;
 
-    public ContSwingShooter contSwing;
-
     public void Start() {
         if(arWaypoint.Length <= 1) {
             Debug.LogError("ERROR! - Can't have 1 or fewer waypoints");
         }
-        if(arWaypoint[iCurWaypoint].transform.localPosition != goPlatform.transform.localPosition) {
+        if(arWaypoint[iCurWaypoint].transform.localPosition != goFollower.transform.localPosition) {
             Debug.LogError("ERROR! - Starting Waypoint should be at the same location as the Platform");
         }
 
-        rbPlatform = goPlatform.GetComponent<Rigidbody2D>();
-        platform = goPlatform.GetComponent<Platform>();
-        contSwing = FindObjectOfType<ContSwingShooter>();
+        nonphysicsmoveable = goFollower.GetComponent<NonPhysicsMoveable>();
+        rbFollower = goFollower.GetComponent<Rigidbody2D>();
     }
 
     public void SetNextWaypoint(){
 
-        v3StartPos = goPlatform.transform.position;
+        v3StartPos = goFollower.transform.position;
         
         switch (pathtype) {
             case PATHTYPE.LOOP:
@@ -74,12 +71,14 @@ public class WaypointFollower : MonoBehaviour {
         }
     }
 
-    public Vector2 GetPlatformSpeed() {
+    public Vector2 GetFollowingVelocity() {
         return (arWaypoint[iCurWaypoint].transform.position - v3StartPos) / fTimeToReach;
     }
 
 
     public void FixedUpdate() {
+
+        if (goFollower == null) return;
 
         fCurTime += Time.deltaTime;
 
@@ -135,10 +134,15 @@ public class WaypointFollower : MonoBehaviour {
                 bMoving = false;
                 fCurTime = 0f;
 
-                PullAttachedWebs();
+                //If we're a platform (maybe generalize to webbable surface?), then we need to impart
+                //  force to anything attached by webs since we're stopping moving
+                PlatformMoveable platformMoveable = goFollower.GetComponent<PlatformMoveable>();
+                if(platformMoveable != null) {
+                    platformMoveable.PullAttachedWebs();
+                }
 
-                rbPlatform.velocity = Vector2.zero;
-                platform.SetMovingForce(Vector3.zero);
+                rbFollower.velocity = Vector2.zero;
+                nonphysicsmoveable.SetMovingForce(Vector3.zero);
             } else {
 
 
@@ -157,35 +161,12 @@ public class WaypointFollower : MonoBehaviour {
                 fCurTime = 0f;
                 SetNextWaypoint();
 
-                platform.SetMovingForce((arWaypoint[iCurWaypoint].transform.position - v3StartPos) / fTimeToReach);
-                rbPlatform.AddForce(rbPlatform.mass * platform.v3MovingForce, ForceMode2D.Impulse);
+                nonphysicsmoveable.SetMovingForce((arWaypoint[iCurWaypoint].transform.position - v3StartPos) / fTimeToReach);
+                rbFollower.AddForce(rbFollower.mass * nonphysicsmoveable.v3MovingForce, ForceMode2D.Impulse);
             }
         }
     }
 
-    public void PullAttached(Web web) {
-
-        Rigidbody2D rbOwner = web.goOwner.GetComponent<Rigidbody2D>();
-
-        if (rbOwner != null && web.webType == Web.WebType.SWINGING) {
-
-            //rbOwner.AddForce((rbPlatform.position - rbOwner.position).normalized * 0.4f, ForceMode2D.Impulse);
-            rbOwner.AddForce(rbPlatform.velocity * rbOwner.mass, ForceMode2D.Impulse);
-        }
-    }
-
-    public void PullAttachedWebs() {
-
-        StickableSurface stick = goPlatform.GetComponent<StickableSurface>();
-
-        if (stick == null) return;
-
-        foreach (Web web in stick.lstStuckWebs) {
-
-            PullAttached(web);
-
-        }
-
-    }
+    
 
 }

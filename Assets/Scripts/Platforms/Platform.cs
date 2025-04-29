@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using JetBrains.Annotations;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,10 +18,10 @@ public class Platform : MonoBehaviour {
 
     public float fCOLLIDERTHICKNESS = 0.04f;
 
-    public Vector3 v3MovingForce;
-    //TODO:: Maybe extend this to be able to carry multiple things?
-    public int nCollisionCounts;
-    public Rigidbody2D rbStandingOn;
+    public Dictionary<Rigidbody2D, int> dictrb2dStandingOn;
+
+    public Subject subAddedStandingOn;
+    public Subject subRemovedStandingOn;
 
     public void PlaceEdgeColliders() {
         bounds = GetComponent<Renderer>().bounds;
@@ -56,47 +57,34 @@ public class Platform : MonoBehaviour {
         goRightWall.layer = LayerMask.NameToLayer("Wall");
     }
 
+    public void Awake() {
+        subAddedStandingOn = new Subject();
+        subRemovedStandingOn = new Subject();
+        dictrb2dStandingOn = new Dictionary<Rigidbody2D, int>();
+    }
+
     public void Start() {
 
         PlaceEdgeColliders();
         rb = GetComponent<Rigidbody2D>();
     }
 
-    public void SetMovingForce(Vector3 _v3MovingForce) {
-        CounteractMovingForce();
-        v3MovingForce = _v3MovingForce;
-        ApplyMovingForce();
-
-    }
-
-    public void ApplyMovingForce() {
-        if(rbStandingOn != null) {
-
-            rbStandingOn.AddForce(rbStandingOn.mass * v3MovingForce, ForceMode2D.Impulse);
-            rbStandingOn.GetComponent<ContFriction>().fTargetVelocityX = v3MovingForce.x;
-        } 
-    }
-
-    public void CounteractMovingForce() {
-        //Only apply a counteracting force if you are either movng the platform down or, not at all vertically
-        // - this means that only if you are moving up, will you continue to be flung in that direction
-        if (rbStandingOn != null && v3MovingForce.y <= 0.1) {
-            rbStandingOn.AddForce(rbStandingOn.mass * -v3MovingForce, ForceMode2D.Impulse);
-        }
-    }
 
     public void OnTriggerEnter2D(Collider2D collision) {
-        //Either we aren't carrying anything currently, or its the same thing we're already carrying - also it better have a Player component
-        if ((rbStandingOn == null && collision.gameObject.GetComponent<Player>() != null) || collision.attachedRigidbody == rbStandingOn)  {
-            rbStandingOn = collision.attachedRigidbody;
-            nCollisionCounts++;
-            if(nCollisionCounts == 1) {
-                //Debug.Log("This was our first collision");
-                ApplyMovingForce();
-            } else {
-                //Debug.Log("This was our second collision so we shouldn't apply any extra force");
-            }
+
+        Rigidbody2D rbCollided = collision.attachedRigidbody;
+
+        if (rbCollided == null) return; //If our collision somehow doesn't have a rigidbody (shouldn't be possible), then we're done
+
+        if (dictrb2dStandingOn.ContainsKey(rbCollided)) {
+            dictrb2dStandingOn[rbCollided]++;
+            return; //If we're already tracking this as being on us, then we're done
         }
+
+        dictrb2dStandingOn.Add(rbCollided, 1);
+
+        subAddedStandingOn.NotifyObs(rbCollided);
+
     }
 
     public void OnTriggerStay2D(Collider2D collision) {
@@ -105,16 +93,22 @@ public class Platform : MonoBehaviour {
 
     public void OnTriggerExit2D(Collider2D collision) {
 
-        if (rbStandingOn != null && collision.attachedRigidbody == rbStandingOn) {
-            nCollisionCounts--;
+        Rigidbody2D rbCollided = collision.attachedRigidbody;
 
-            if(nCollisionCounts == 0) {
-                //Debug.Log("Lost all collisions");
-                rbStandingOn.GetComponent<ContFriction>().fTargetVelocityX = 0;
+        if (rbCollided == null) return; //If our collision somehow doesn't have a rigidbody (shouldn't be possible), then we're done
 
-                rbStandingOn = null;
-            }
-        } 
+        if(dictrb2dStandingOn.ContainsKey(rbCollided) == false) {
+            Debug.LogErrorFormat("Somehow exited the trigger for {0}, but we don't have a record of us colliding with it", rbCollided.gameObject.name);
+            return;
+        }
+        dictrb2dStandingOn[rbCollided]--;
+
+        if (dictrb2dStandingOn[rbCollided] == 0) {
+            dictrb2dStandingOn.Remove(rbCollided);
+
+            subRemovedStandingOn.NotifyObs(rbCollided);
+        }
+
     }
 
 
