@@ -122,6 +122,7 @@ MonoBehaviour:
   goRightWall: {fileID: 0}
   pfPlatformCollider: {fileID: 1130006282822378, guid: f0cddfcd57057864fa902becdf7c1f72,
     type: 3}
+  rb: {fileID: 0}
   fCOLLIDERTHICKNESS: 0.04
 --- !u!61 &2226955066423021837
 BoxCollider2D:
