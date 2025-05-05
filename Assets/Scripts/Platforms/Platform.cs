@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class Platform : MonoBehaviour {
 
@@ -27,7 +28,7 @@ public class Platform : MonoBehaviour {
         bounds = GetComponent<Renderer>().bounds;
 
         goFloor = Instantiate(pfPlatformCollider);
-        goFloor.transform.localScale = new Vector2(bounds.size.x, fCOLLIDERTHICKNESS);
+        goFloor.transform.localScale = new Vector3(bounds.size.x, fCOLLIDERTHICKNESS, 1f);
         goFloor.transform.localPosition = new Vector2(this.transform.position.x, this.transform.position.y + bounds.extents.y - fCOLLIDERTHICKNESS / 2);
         goFloor.transform.SetParent(this.transform);
         
@@ -35,7 +36,7 @@ public class Platform : MonoBehaviour {
 
 
         goCeiling = Instantiate(pfPlatformCollider);
-        goCeiling.transform.localScale = new Vector2(bounds.size.x, fCOLLIDERTHICKNESS);
+        goCeiling.transform.localScale = new Vector3(bounds.size.x, fCOLLIDERTHICKNESS, 1f);
         goCeiling.transform.localPosition = new Vector2(this.transform.position.x, this.transform.position.y - bounds.extents.y + fCOLLIDERTHICKNESS / 2);
         goCeiling.transform.SetParent(this.transform);
 
@@ -43,14 +44,14 @@ public class Platform : MonoBehaviour {
 
 
         goLeftWall = Instantiate(pfPlatformCollider);
-        goLeftWall.transform.localScale = new Vector2(fCOLLIDERTHICKNESS, bounds.size.y - (fCOLLIDERTHICKNESS * 2));
+        goLeftWall.transform.localScale = new Vector3(fCOLLIDERTHICKNESS, bounds.size.y - (fCOLLIDERTHICKNESS * 2), 1f);
         goLeftWall.transform.localPosition = new Vector2(this.transform.position.x - bounds.extents.x + fCOLLIDERTHICKNESS / 2, this.transform.position.y);
         goLeftWall.transform.SetParent(this.transform);
 
         goLeftWall.layer = LayerMask.NameToLayer("Wall");
 
         goRightWall = Instantiate(pfPlatformCollider);
-        goRightWall.transform.localScale = new Vector2(fCOLLIDERTHICKNESS, bounds.size.y - (fCOLLIDERTHICKNESS * 2));
+        goRightWall.transform.localScale = new Vector3(fCOLLIDERTHICKNESS, bounds.size.y - (fCOLLIDERTHICKNESS * 2), 1f);
         goRightWall.transform.localPosition = new Vector2(this.transform.position.x + bounds.extents.x - fCOLLIDERTHICKNESS / 2, this.transform.position.y);
         goRightWall.transform.SetParent(this.transform);
 
@@ -61,6 +62,7 @@ public class Platform : MonoBehaviour {
         subAddedStandingOn = new Subject();
         subRemovedStandingOn = new Subject();
         dictrb2dStandingOn = new Dictionary<Rigidbody2D, int>();
+        GetComponent<SpriteRenderer>().shadowCastingMode = ShadowCastingMode.On;
     }
 
     public void Start() {
