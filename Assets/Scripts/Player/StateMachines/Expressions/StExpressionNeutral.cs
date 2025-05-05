@@ -23,11 +23,11 @@ public class StExpressionNeutral : StExpression{
                 break;
             case DirectionFacing.LEFT:
                 contExpressions.spriteRendererExpression.sprite = contExpressions.sprNeutralSide;
-                contExpressions.spriteRendererExpression.transform.localScale = new Vector3(-0.5f, contExpressions.spriteRendererExpression.transform.localScale.y);
+                contExpressions.spriteRendererExpression.transform.localScale = new Vector3(-0.5f, contExpressions.spriteRendererExpression.transform.localScale.y, 1f);
                 break;
             case DirectionFacing.RIGHT:
                 contExpressions.spriteRendererExpression.sprite = contExpressions.sprNeutralSide;
-                contExpressions.spriteRendererExpression.transform.localScale = new Vector3(0.5f, contExpressions.spriteRendererExpression.transform.localScale.y);
+                contExpressions.spriteRendererExpression.transform.localScale = new Vector3(0.5f, contExpressions.spriteRendererExpression.transform.localScale.y, 1f);
                 break;
             case DirectionFacing.DOWN:
                 contExpressions.spriteRendererExpression.sprite = contExpressions.sprNeutralDown;

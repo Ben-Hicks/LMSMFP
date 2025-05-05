@@ -3,7 +3,32 @@ guid: d0ab21c52add17d4581bccaa5dcbd12b
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - spriteRendererExpression: {instanceID: 0}
+  - sprNeutral: {fileID: 21300000, guid: 62b847b53aac20c4bb3072c488464969, type: 3}
+  - sprNeutralDown: {fileID: 21300000, guid: 3aab43b87e75f6d43b62d537840984ca, type: 3}
+  - sprNeutralSide: {fileID: 21300000, guid: 126dec663815a9841a338f85ec57fa7e, type: 3}
+  - sprNeutralUp: {fileID: 21300000, guid: c934ae1e1ee01aa41aa1f350c6a9a417, type: 3}
+  - sprFast: {fileID: 21300000, guid: feb14a46e5f0c694998b119f16a264aa, type: 3}
+  - sprFastDown: {fileID: 21300000, guid: f90882a18ac074a40a0f0555f465b16b, type: 3}
+  - sprFastSide: {fileID: 21300000, guid: 2e4c61c7a62f4b843980eff311ca1bd9, type: 3}
+  - sprFastUp: {fileID: 21300000, guid: 365964ff37d068741b8f0c9ee1fd5609, type: 3}
+  - sprNearFly: {fileID: 21300000, guid: 8a27b90b759c3eb4fb8ab05d6eabaf35, type: 3}
+  - sprNearFlyDown: {fileID: 21300000, guid: 8ae445f9b6b9d4b46ac8e5eac4c5e18d, type: 3}
+  - sprNearFlySide: {fileID: 21300000, guid: 8023c45f0b0321941887f3a857c2bbce, type: 3}
+  - sprNearFlyUp: {fileID: 21300000, guid: 62b847b53aac20c4bb3072c488464969, type: 3}
+  - sprChewing: {fileID: 21300000, guid: a427ecc6a858b8e4d9acf61f717f8d5b, type: 3}
+  - sprChewingDown: {fileID: 21300000, guid: 5b850a8264c4f8a45a96e27edafe3b15, type: 3}
+  - sprChewingSide: {fileID: 21300000, guid: 553530a282062484ea411f8050e1d0bc, type: 3}
+  - sprChewingUp: {fileID: 21300000, guid: 49f8baefc2d996e4bb278ab8e0a10069, type: 3}
+  - sprHappy: {fileID: 21300000, guid: d0a94a76ff9bc4a46b9bc23c6e4460da, type: 3}
+  - sprHappySide: {fileID: 21300000, guid: c0d6136d71fe68949978bed2ce7d257e, type: 3}
+  - sprFear: {fileID: 21300000, guid: 8a27b90b759c3eb4fb8ab05d6eabaf35, type: 3}
+  - sprBored: {fileID: 21300000, guid: 3084e4ea0c335b24393dc73c6119ac30, type: 3}
+  - sprSleep1: {fileID: 21300000, guid: 034d50559e0766c43acc116c6df4e036, type: 3}
+  - sprSleep2: {fileID: 21300000, guid: be6d2fcf81ecee14a8355a4173a06110, type: 3}
+  - sprDead: {fileID: 21300000, guid: f7ef18207d318244aa06df0f0fffdf24, type: 3}
+  - plyrOwner: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
