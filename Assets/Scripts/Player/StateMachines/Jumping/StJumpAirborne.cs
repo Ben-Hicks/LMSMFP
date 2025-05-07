@@ -15,7 +15,7 @@ public class StJumpAirborne : StJump {
         }
     }
 
-    public override void HandleJumpInput() {
+    public override void PseudoUpdate() {
 
         if (plyrOwner.bMovementLocked == false) {
             if (plyrOwner.contInput.bJump && contJumping.cooldown.CanUse()) {

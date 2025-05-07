@@ -19,7 +19,7 @@ public class StJumpReady : StJump {
         }
     }
 
-    public override void HandleJumpInput() {
+    public override void PseudoUpdate() {
 
         //If we're pressing jump and it's off cooldown
         if (plyrOwner.bMovementLocked == false) {

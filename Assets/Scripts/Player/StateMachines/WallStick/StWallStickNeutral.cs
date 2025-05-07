@@ -17,7 +17,7 @@ public class StWallStickNeutral : StWallStick {
         }
     }
 
-    public override void PsuedoUpdate() {
+    public override void PseudoFixedUpdate() {
 
         CheckOnWall();
 

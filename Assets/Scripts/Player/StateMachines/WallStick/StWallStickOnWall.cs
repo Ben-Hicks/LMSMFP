@@ -32,7 +32,7 @@ public class StWallStickOnWall : StWallStick {
     }
 
 
-    public override void PsuedoUpdate() {
+    public override void PseudoFixedUpdate() {
 
         CheckStillOnWall();
 

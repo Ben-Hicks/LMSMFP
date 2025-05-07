@@ -31,7 +31,7 @@ public class StSwingAttached : StSwing {
         }
     }
 
-    public override void PsuedoUpdate() {
+    public override void PseudoUpdate() {
 
         //Wait for releasing the web
         if (plyrOwner.bMovementLocked || plyrOwner.contInput.bShootSwingingWebHeld == false) {

@@ -20,7 +20,12 @@ public class ContWallStick : MonoBehaviour {
 
     public void PseudoUpdate() {
         //Apply the current states 
-        stmachWallStick.stateCur.PsuedoUpdate();
+        stmachWallStick.stateCur.PseudoUpdate();
+    }
+
+    public void PseudoFixedUpdate() {
+        //Apply the current states 
+        stmachWallStick.stateCur.PseudoFixedUpdate();
     }
 
 }

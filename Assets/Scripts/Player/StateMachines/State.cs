@@ -14,7 +14,7 @@ public abstract class State{
 
     }
 
-    public virtual void PsuedoUpdate() {
+    public virtual void PseudoUpdate() {
 
     }
 

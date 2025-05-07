@@ -39,13 +39,13 @@ public class ContJumping : MonoBehaviour {
         stmachJump = new StateMachine<StJump>(new StJumpReady(this));
     }
 
-    public void HandleJumpInput() {
+    public void PseudoUpdate() {
 
         //Let the current state decide what to do
-        stmachJump.stateCur.HandleJumpInput();
+        stmachJump.stateCur.PseudoUpdate();
     }
 
-    public void FixedUpdate() {
+    public void PseudoFixedUpdate() {
         stmachJump.stateCur.PseudoFixedUpdate();
     }
 

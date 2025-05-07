@@ -17,7 +17,7 @@ public class StDashReady : StDash {
         }
     }
 
-    public override void HandleDashInput() {
+    public override void PseudoUpdate() {
 
         if (plyrOwner.bMovementLocked == false) {
             if (plyrOwner.contInput.bDashLeft && contDashing.cooldown.CanUse()) {

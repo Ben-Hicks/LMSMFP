@@ -516,17 +516,17 @@ PrefabInstance:
     - target: {fileID: -8078489404210459756, guid: 108d7739d5fca004f98f7ce94442a7b1,
         type: 3}
       propertyPath: fSwingFriction
-      value: 40
+      value: 400
       objectReference: {fileID: 0}
     - target: {fileID: -8078489404210459756, guid: 108d7739d5fca004f98f7ce94442a7b1,
         type: 3}
       propertyPath: fGroundFriction
-      value: 200
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: -8078489404210459756, guid: 108d7739d5fca004f98f7ce94442a7b1,
         type: 3}
       propertyPath: fAirborneFriction
-      value: 80
+      value: 600
       objectReference: {fileID: 0}
     - target: {fileID: 1558996266249706, guid: 108d7739d5fca004f98f7ce94442a7b1, type: 3}
       propertyPath: m_Name
@@ -575,7 +575,7 @@ PrefabInstance:
     - target: {fileID: 114840148867563064, guid: 108d7739d5fca004f98f7ce94442a7b1,
         type: 3}
       propertyPath: fMoveSpeed
-      value: 400
+      value: 800
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

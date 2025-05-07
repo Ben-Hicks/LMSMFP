@@ -41,7 +41,7 @@ public class ContSwingShooter : MonoBehaviour {
     public void PseudoUpdate() {
 
         //Let the current state decide what to do
-        stmachSwing.stateCur.PsuedoUpdate();
+        stmachSwing.stateCur.PseudoUpdate();
         
     }
 

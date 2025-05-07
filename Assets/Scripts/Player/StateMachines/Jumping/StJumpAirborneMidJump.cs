@@ -55,7 +55,7 @@ public class StJumpAirborneMidJump : StJump {
         }
     }
 
-    public override void HandleJumpInput() {
+    public override void PseudoUpdate() {
 
         //If we're trying to stop jumping, ensure we've jumped for at least the minimum
         if (plyrOwner.bMovementLocked || (plyrOwner.contInput.bJump == false && contJumping.fCurJumpTime >= contJumping.fMinAirborneJumpTime)) {

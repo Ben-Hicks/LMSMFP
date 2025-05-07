@@ -38,13 +38,13 @@ public class ContDashing : MonoBehaviour {
         fDashSpeed = fDashDistance / fDashTime;
     }
 
-    public void HandleDashInput() {
+    public void PseudoUpdate() {
 
-        stmachDash.stateCur.HandleDashInput();
+        stmachDash.stateCur.PseudoUpdate();
 
     }
 
-    public void FixedUpdate() {
+    public void PseudoFixedUpdate() {
         stmachDash.stateCur.PseudoFixedUpdate();
     }
 

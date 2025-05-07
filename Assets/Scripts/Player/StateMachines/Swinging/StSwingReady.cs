@@ -16,7 +16,7 @@ public class StSwingReady : StSwing {
 
     }
 
-    public override void PsuedoUpdate() {
+    public override void PseudoUpdate() {
 
         if (plyrOwner.bMovementLocked == false) {
             //Check if we're pressing the shoot button and that we have enough charges to actually shoot

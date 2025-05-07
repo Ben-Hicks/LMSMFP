@@ -81,13 +81,15 @@ public class Player : Singleton<Player> {
         
         contInput.UpdateInput();
 
-        /*
         contWallStick.PseudoUpdate();
+        /*
         contSwingShooter.PseudoUpdate();
         contLaunchShooter.HandleLaunchInput();
-        contDashing.HandleDashInput();
-        contJumping.HandleJumpInput();
         */
+
+        contDashing.PseudoUpdate();
+        contJumping.PseudoUpdate();
+        
 
         //ProcessInput();
     }
@@ -97,14 +99,16 @@ public class Player : Singleton<Player> {
         oldCollision = curCollision;
         curCollision = UpdateCollisions();
 
+        contWallStick.PseudoFixedUpdate();
         /*
-        contWallStick.Pseudo();
         contSwingShooter.PseudoUpdate();
         contLaunchShooter.HandleLaunchInput();
-        contDashing.HandleDashInput();
-        contJumping.HandleJumpInput();
-
         */
+
+        contDashing.PseudoFixedUpdate();
+        contJumping.PseudoFixedUpdate();
+
+        
 
         HandleHorizontalMovement();
 
