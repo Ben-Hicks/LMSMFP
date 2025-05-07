@@ -8,7 +8,7 @@ public class StExpressionHappy : StExpression {
 
     }
 
-    public override void OnFixedUpdate() {
+    public override void PseudoFixedUpdate() {
 
         //Only look for new transitions if we've finished our happy duration
         if (FinishedHappy()) {

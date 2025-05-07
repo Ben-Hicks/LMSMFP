@@ -9,7 +9,6 @@ public class Player : Singleton<Player> {
     [Header("Configurable")]
     public float fMaxRotateVelocity = 800f;
     public float fCollisionDepth = 0.04f;
-    public float fFriction;
     public float fMoveSpeed;
     public float fMaxMoveVelocity;
     public float fJumpAccel;
@@ -34,10 +33,6 @@ public class Player : Singleton<Player> {
     public CollisionInfo curCollision;
 
     [Header("Properties")]
-    public float fTorqueToAdd;
-    public float fxForceToAdd;
-    public float fyForceToAdd;
-
     public bool bMovementLocked;
     [HideInInspector]
     public bool bStartedMoving;
@@ -86,10 +81,34 @@ public class Player : Singleton<Player> {
         
         contInput.UpdateInput();
 
+        /*
+        contWallStick.PseudoUpdate();
+        contSwingShooter.PseudoUpdate();
+        contLaunchShooter.HandleLaunchInput();
+        contDashing.HandleDashInput();
+        contJumping.HandleJumpInput();
+        */
+
+        //ProcessInput();
+    }
+
+    private void FixedUpdate() {
+
         oldCollision = curCollision;
         curCollision = UpdateCollisions();
 
-        ProcessInput();
+        /*
+        contWallStick.Pseudo();
+        contSwingShooter.PseudoUpdate();
+        contLaunchShooter.HandleLaunchInput();
+        contDashing.HandleDashInput();
+        contJumping.HandleJumpInput();
+
+        */
+
+        HandleHorizontalMovement();
+
+        contFriction.PsuedoFixedUpdate();
     }
 
 
@@ -149,16 +168,9 @@ public class Player : Singleton<Player> {
         }
     }
 
-    void ProcessInput() {
-        fxForceToAdd = 0f;
-        fyForceToAdd = 0f;
-        fTorqueToAdd = 0f;
+    public void HandleHorizontalMovement() {
 
-
-        contWallStick.HandleWallStick();
-        contSwingShooter.HandleSwingInput();
-        contLaunchShooter.HandleLaunchInput();
-        contDashing.HandleDashInput();
+        float fxForceToAdd = 0f;
 
         //Horizontal Movement
 
@@ -175,8 +187,12 @@ public class Player : Singleton<Player> {
             }
         }
 
-        contJumping.HandleJumpInput();
-        
+        if (fxForceToAdd != 0f) {
+            fxForceToAdd *= Time.fixedDeltaTime;
+            Debug.LogFormat("Adding horizontal force {0}", fxForceToAdd);
+            rb.AddForce(new Vector2(fxForceToAdd, 0f));
+        }
+
         //Modify Gravity Scale if holding Down
         if (bMovementLocked == false) {
             if (contInput.bFastFall && GetComponent<ContDashing>().curDashDirection == ContDashing.DashDirection.NONE) {
@@ -186,17 +202,6 @@ public class Player : Singleton<Player> {
             }
         }
 
-        contFriction.LimitMaxVelocity();
-        contFriction.ApplyFriction();
-
-
-        //Adding velocity
-        rb.AddForce(new Vector2(fxForceToAdd, fyForceToAdd));
-
-        //Debug.Log("Current speed X is " + rb.velocity.x + " and we're adding an x force of " + fxForceToAdd);
-
-        //Adding rotation
-        rb.AddTorque(fTorqueToAdd);
 
     }
 

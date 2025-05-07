@@ -40,7 +40,8 @@ public class ContLaunchShooter : MonoBehaviour{
     }
 
     public void FixedUpdate() {
-        stmachLaunch.stateCur.OnFixedUpdate();
+        stmachLaunch.stateCur.PseudoFixedUpdate();
+        //Debug.LogFormat("Current velocity is {0}", GetComponent<Rigidbody2D>().velocity);
     }
 
     public void Detach() {

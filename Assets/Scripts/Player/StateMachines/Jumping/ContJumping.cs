@@ -46,7 +46,7 @@ public class ContJumping : MonoBehaviour {
     }
 
     public void FixedUpdate() {
-        stmachJump.stateCur.OnFixedUpdate();
+        stmachJump.stateCur.PseudoFixedUpdate();
     }
 
     public void OnDestroy() {

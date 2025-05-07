@@ -27,8 +27,4 @@ public class StSwing : State {
         contSwingShooter = _contSwingShooter;
     }
 
-    public virtual void HandleSwingInput() {
-        //By default, do nothing
-    }
-
 }

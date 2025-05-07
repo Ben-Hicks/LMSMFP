@@ -22,7 +22,7 @@ public class StSwingAttached : StSwing {
         contSwingShooter.GetComponent<DistanceJoint2D>().distance += contSwingShooter.fMaxElasticDistance;
     }
 
-    public override void OnFixedUpdate() {
+    public override void PseudoFixedUpdate() {
     fTimeAttached += Time.fixedDeltaTime;
 
         if (contSwingShooter.fMaxElasticDistance > 0) {
@@ -31,7 +31,7 @@ public class StSwingAttached : StSwing {
         }
     }
 
-    public override void HandleSwingInput() {
+    public override void PsuedoUpdate() {
 
         //Wait for releasing the web
         if (plyrOwner.bMovementLocked || plyrOwner.contInput.bShootSwingingWebHeld == false) {
@@ -57,16 +57,16 @@ public class StSwingAttached : StSwing {
     public void Extend() {
         //Only allow extensions if they wouldn't put us over the maximum (note that this doesn't shorten the length if it was already above the maximum)
         if (contSwingShooter.GetComponent<DistanceJoint2D>().distance < contSwingShooter.fMaxWebLength) {
-            contSwingShooter.GetComponent<DistanceJoint2D>().distance += contSwingShooter.fExtendSpeed * Time.deltaTime;
-            fDesiredWebLength += contSwingShooter.fExtendSpeed * Time.deltaTime;
+            contSwingShooter.GetComponent<DistanceJoint2D>().distance += contSwingShooter.fExtendSpeed * Time.fixedDeltaTime;
+            fDesiredWebLength += contSwingShooter.fExtendSpeed * Time.fixedDeltaTime;
         }
     }
 
     public void Retract() {
         //Only allow retractions if they wouldn't put us below the minimum (note that this doesn't extend the length if it was already below the minimum)
         if (contSwingShooter.GetComponent<DistanceJoint2D>().distance > contSwingShooter.fMinWebLength) {
-            contSwingShooter.GetComponent<DistanceJoint2D>().distance -= contSwingShooter.fRetractSpeed * Time.deltaTime;
-            fDesiredWebLength -= contSwingShooter.fRetractSpeed * Time.deltaTime;
+            contSwingShooter.GetComponent<DistanceJoint2D>().distance -= contSwingShooter.fRetractSpeed * Time.fixedDeltaTime;
+            fDesiredWebLength -= contSwingShooter.fRetractSpeed * Time.fixedDeltaTime;
         }
     }
 

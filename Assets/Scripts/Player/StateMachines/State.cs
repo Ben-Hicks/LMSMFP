@@ -14,11 +14,11 @@ public abstract class State{
 
     }
 
-    public virtual void OnUpdate() {
+    public virtual void PsuedoUpdate() {
 
     }
 
-    public virtual void OnFixedUpdate() {
+    public virtual void PseudoFixedUpdate() {
 
     }
 

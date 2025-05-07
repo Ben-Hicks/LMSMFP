@@ -19,11 +19,13 @@ public abstract class StRoll : State{
 
     public void HandleRollInput() {
 
+        Debug.LogError("Rolling is not currently supported");
+
         if (plyrOwner.contInput.bDashLeft) {
-            plyrOwner.fTorqueToAdd += contRolling.fRotateSpeed;
+            //plyrOwner.fTorqueToAdd += contRolling.fRotateSpeed;
         }
         if (plyrOwner.contInput.bDashRight) {
-            plyrOwner.fTorqueToAdd -= contRolling.fRotateSpeed;
+            //plyrOwner.fTorqueToAdd -= contRolling.fRotateSpeed;
         }
     }
 

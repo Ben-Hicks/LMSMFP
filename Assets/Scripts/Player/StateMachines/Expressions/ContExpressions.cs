@@ -63,6 +63,6 @@ public class ContExpressions : MonoBehaviour {
 
     private void FixedUpdate() {
         sCurState = stmachExpressions.stateCur.ToString();
-        stmachExpressions.stateCur.OnFixedUpdate();
+        stmachExpressions.stateCur.PseudoFixedUpdate();
     }
 }

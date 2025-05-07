@@ -9,7 +9,7 @@ public class StExpressionDead : StExpression {
     }
 
 
-    public override void OnFixedUpdate() {
+    public override void PseudoFixedUpdate() {
         //We don't need to update our time in this state, or look to transition out of it
     }
 

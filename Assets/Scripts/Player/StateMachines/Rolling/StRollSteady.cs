@@ -6,7 +6,7 @@ public class StRollSteady : StRoll{
 
     public StRollSteady(ContRolling _contRolling) : base(_contRolling) { }
 
-    public override void OnFixedUpdate() {
+    public override void PseudoFixedUpdate() {
 
         //Debug.Log("Angular velocity is " + plyrOwner.GetComponent<Rigidbody2D>().angularVelocity);
 

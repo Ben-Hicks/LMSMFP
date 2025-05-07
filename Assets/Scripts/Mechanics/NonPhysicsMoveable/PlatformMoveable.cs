@@ -44,7 +44,7 @@ public class PlatformMoveable : NonPhysicsMoveable {
         //   then we can direct it's friction component to maintain a desired matching X velocity
         ContFriction contFriction = rbStandingOn.GetComponent<ContFriction>();
         if(contFriction != null) {
-            rbStandingOn.GetComponent<ContFriction>().fTargetVelocityX = v3MovingForce.x;
+            rbStandingOn.GetComponent<ContFriction>().fExternallyMaintainedVelocityX = v3MovingForce.x;
         }
     }
 
@@ -80,7 +80,7 @@ public class PlatformMoveable : NonPhysicsMoveable {
 
         ContFriction contFriction = rbStandingOn.GetComponent<ContFriction>();
         if (contFriction != null) {
-            rbStandingOn.GetComponent<ContFriction>().fTargetVelocityX = 0;
+            rbStandingOn.GetComponent<ContFriction>().fExternallyMaintainedVelocityX = 0;
         }
     }
 

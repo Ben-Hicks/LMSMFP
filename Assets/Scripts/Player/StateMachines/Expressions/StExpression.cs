@@ -39,7 +39,7 @@ public abstract class StExpression : State {
         }
     }
 
-    public override void OnFixedUpdate() {
+    public override void PseudoFixedUpdate() {
 
         if (contExpressions.GetComponent<Rigidbody2D>().velocity.magnitude < 0.1) {
             fIdleTime += Time.fixedDeltaTime;

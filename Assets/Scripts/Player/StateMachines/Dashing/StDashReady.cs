@@ -8,7 +8,7 @@ public class StDashReady : StDash {
 
     }
 
-    public override void OnFixedUpdate() {
+    public override void PseudoFixedUpdate() {
 
         //If we're no longer touching the ground
         if (plyrOwner.curCollision.bFloor) {

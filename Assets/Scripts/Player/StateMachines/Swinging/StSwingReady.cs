@@ -6,7 +6,7 @@ public class StSwingReady : StSwing {
 
     public StSwingReady(ContSwingShooter _contSwingShooter) : base(_contSwingShooter) { }
 
-    public override void OnFixedUpdate() {
+    public override void PseudoFixedUpdate() {
 
         //If we're touching the ground
         if (plyrOwner.curCollision.bFloor) {
@@ -16,7 +16,7 @@ public class StSwingReady : StSwing {
 
     }
 
-    public override void HandleSwingInput() {
+    public override void PsuedoUpdate() {
 
         if (plyrOwner.bMovementLocked == false) {
             //Check if we're pressing the shoot button and that we have enough charges to actually shoot

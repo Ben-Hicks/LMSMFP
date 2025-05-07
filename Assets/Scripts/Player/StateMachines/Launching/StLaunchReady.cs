@@ -6,7 +6,7 @@ public class StLaunchReady : StLaunch {
 
     public StLaunchReady(ContLaunchShooter _contLaunchShooter) :base (_contLaunchShooter) { }
 
-    public override void OnFixedUpdate(){
+    public override void PseudoFixedUpdate(){
 
         //If we're touching the ground
         if (plyrOwner.curCollision.bFloor) {

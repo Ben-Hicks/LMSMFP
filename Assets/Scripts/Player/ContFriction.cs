@@ -14,7 +14,7 @@ public class ContFriction : MonoBehaviour {
 
     [Header("Properties")]
     public Player player;
-    public float fTargetVelocityX;
+    public float fExternallyMaintainedVelocityX;
 
     public enum FRICTIONTYPE { NONE, FLOOR, SWINGING, AIR }
     public FRICTIONTYPE fricType;
@@ -24,21 +24,25 @@ public class ContFriction : MonoBehaviour {
     }
 
     public void LimitMaxVelocity() {
-
+        Debug.LogError("LimitMaxVelocity is currently not supported");
+        
+        /*
         //Do a check to make sure we're not accelerating too fast in one direction
-        if (player.rb.velocity.x < -player.fMaxMoveVelocity + fTargetVelocityX) {
+        if (player.rb.velocity.x < -player.fMaxMoveVelocity + fExternallyMaintainedVelocityX) {
+            Debug.LogFormat("Limiting max velocity since we're moving too fast at {0}", player.rb.velocity.x);
             player.fxForceToAdd = Mathf.Max(player.fxForceToAdd, 0);
-        } else if (player.rb.velocity.x > player.fMaxMoveVelocity + fTargetVelocityX) {
+        } else if (player.rb.velocity.x > player.fMaxMoveVelocity + fExternallyMaintainedVelocityX) {
+            Debug.LogFormat("Limiting max velocity since we're moving too fast at {0}", player.rb.velocity.x);
             player.fxForceToAdd = Mathf.Min(player.fxForceToAdd, 0);
         }
-
+  
         //Do a check to make sure we're not rotating too fast in one direction
         if (player.rb.angularVelocity < -player.fMaxRotateVelocity) {
             player.fTorqueToAdd = Mathf.Max(player.fTorqueToAdd, 0);
         } else if (player.rb.angularVelocity > player.fMaxRotateVelocity) {
             player.fTorqueToAdd = Mathf.Min(player.fTorqueToAdd, 0);
         }
-
+        */
     }
 
     public void ApplyFriction() {
@@ -55,12 +59,12 @@ public class ContFriction : MonoBehaviour {
 
 
     void ApplyCounterForce(float fMagnitude) {
-        if (player.rb.velocity.x - fTargetVelocityX < -fMinVelocityThreshold) {
-            player.rb.AddForce(new Vector2(fMagnitude, 0));
-            //Debug.Log("Applied a counter force of " + fMagnitude);
-        }else if (player.rb.velocity.x - fTargetVelocityX > fMinVelocityThreshold) {
-            player.rb.AddForce(new Vector2(-fMagnitude, 0));
-            //Debug.Log("Applied a counter force of " + (-fMagnitude));
+        if (player.rb.velocity.x - fExternallyMaintainedVelocityX < -fMinVelocityThreshold) {
+            player.rb.AddForce(new Vector2(fMagnitude * Time.fixedDeltaTime, 0));
+            Debug.Log("Applied a counter force of " + fMagnitude);
+        }else if (player.rb.velocity.x - fExternallyMaintainedVelocityX > fMinVelocityThreshold) {
+            player.rb.AddForce(new Vector2(-fMagnitude * Time.fixedDeltaTime, 0));
+            Debug.Log("Applied a counter force of " + (-fMagnitude));
         } else {
             Debug.LogError("Not enough velocity to apply friction");
         }
@@ -82,9 +86,9 @@ public class ContFriction : MonoBehaviour {
      void ApplyAirborneFriction() {
         fricType = FRICTIONTYPE.AIR;
 
-        if(player.rb.velocity.x - fTargetVelocityX < -fMinVelocityThreshold && !player.contInput.bMoveLeft) {
+        if(player.rb.velocity.x - fExternallyMaintainedVelocityX < -fMinVelocityThreshold && !player.contInput.bMoveLeft) {
             ApplyCounterForce(fAirborneFriction);
-        } else if (player.rb.velocity.x - fTargetVelocityX > fMinVelocityThreshold && !player.contInput.bMoveRight) {
+        } else if (player.rb.velocity.x - fExternallyMaintainedVelocityX > fMinVelocityThreshold && !player.contInput.bMoveRight) {
             ApplyCounterForce(fAirborneFriction);
         }
 
@@ -93,10 +97,19 @@ public class ContFriction : MonoBehaviour {
     void ApplyGroundFriction() {
         fricType = FRICTIONTYPE.FLOOR;
 
-        if (player.rb.velocity.x - fTargetVelocityX < -fMinVelocityThreshold && !player.contInput.bMoveLeft) {
+        if (player.rb.velocity.x - fExternallyMaintainedVelocityX < -fMinVelocityThreshold && !player.contInput.bMoveLeft) {
+            Debug.LogFormat("velocity {0} - ext {1} < {2}?: {3}", player.rb.velocity.x, fExternallyMaintainedVelocityX, -fMinVelocityThreshold,
+                player.rb.velocity.x - fExternallyMaintainedVelocityX < -fMinVelocityThreshold);
             ApplyCounterForce(fGroundFriction);
-        } else if (player.rb.velocity.x - fTargetVelocityX > fMinVelocityThreshold && !player.contInput.bMoveRight) {
+        } else if (player.rb.velocity.x - fExternallyMaintainedVelocityX > fMinVelocityThreshold && !player.contInput.bMoveRight) {
+            Debug.LogFormat("velocity {0} - ext {1} > {2}?: {3}", player.rb.velocity.x, fExternallyMaintainedVelocityX, -fMinVelocityThreshold,
+                player.rb.velocity.x - fExternallyMaintainedVelocityX > fMinVelocityThreshold);
             ApplyCounterForce(fGroundFriction);
         }
+    }
+
+    public void PsuedoFixedUpdate() {
+        //LimitMaxVelocity();
+        ApplyFriction();
     }
 }

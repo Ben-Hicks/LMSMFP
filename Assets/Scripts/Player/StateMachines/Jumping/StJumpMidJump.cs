@@ -26,7 +26,7 @@ public class StJumpMidJump : StJump {
         contJumping.cooldown.SetCooldown(contJumping.fCooldownBetweenJumps);
     }
 
-    public override void OnFixedUpdate() {
+    public override void PseudoFixedUpdate() {
 
         contJumping.fCurJumpTime += Time.fixedDeltaTime;
 

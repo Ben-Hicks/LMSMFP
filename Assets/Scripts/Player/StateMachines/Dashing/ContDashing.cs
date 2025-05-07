@@ -45,7 +45,7 @@ public class ContDashing : MonoBehaviour {
     }
 
     public void FixedUpdate() {
-        stmachDash.stateCur.OnFixedUpdate();
+        stmachDash.stateCur.PseudoFixedUpdate();
     }
 
 }

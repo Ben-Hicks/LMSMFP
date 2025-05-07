@@ -8,7 +8,7 @@ public class StJumpAirborne : StJump {
 
     }
 
-    public override void OnFixedUpdate(){
+    public override void PseudoFixedUpdate(){
 
         if (plyrOwner.curCollision.bFloor) {
             Transition(new StJumpReady(contJumping));

@@ -62,7 +62,6 @@ public class Platform : MonoBehaviour {
         subAddedStandingOn = new Subject();
         subRemovedStandingOn = new Subject();
         dictrb2dStandingOn = new Dictionary<Rigidbody2D, int>();
-        GetComponent<SpriteRenderer>().shadowCastingMode = ShadowCastingMode.On;
     }
 
     public void Start() {

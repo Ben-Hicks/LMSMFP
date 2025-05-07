@@ -18,7 +18,7 @@ public class StDashMidDash : StDash{
 
     }
 
-    public override void OnFixedUpdate() {
+    public override void PseudoFixedUpdate() {
 
         contDashing.fCurDashTime += Time.fixedDeltaTime;
 

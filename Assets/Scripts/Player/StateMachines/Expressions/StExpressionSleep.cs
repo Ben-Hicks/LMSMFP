@@ -8,8 +8,8 @@ public class StExpressionSleep : StExpression {
 
     }
 
-    public override void OnFixedUpdate() {
-        base.OnFixedUpdate();
+    public override void PseudoFixedUpdate() {
+        base.PseudoFixedUpdate();
 
         DecideSprite();
     }

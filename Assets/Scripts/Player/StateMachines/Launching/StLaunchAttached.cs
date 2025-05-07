@@ -31,6 +31,7 @@ public class StLaunchAttached : StLaunch {
 
         //A velocity version of launching
         plyrOwner.GetComponent<Rigidbody2D>().velocity = (v2LaunchDirection * contLaunchShooter.fLaunchVelocity);
+        Debug.LogFormat("Set velocity from launching to {0}", plyrOwner.GetComponent<Rigidbody2D>().velocity);
 
         //A force version of launching
         //goOwner.GetComponent<Rigidbody2D>().AddForce(v2LaunchDirection * fLaunchForce);

@@ -12,7 +12,7 @@ public class StLaunchShooting : StLaunch {
         plyrOwner.OnMovementInput();
     }
 
-    public override void OnFixedUpdate() {
+    public override void PseudoFixedUpdate() {
 
         //Check if the web has collided with a surface
         Web.CollisionType collision = contLaunchShooter.goCurLaunchWeb.GetComponent<Web>().ReachedSurface();

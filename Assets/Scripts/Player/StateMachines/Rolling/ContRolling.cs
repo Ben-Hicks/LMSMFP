@@ -20,7 +20,7 @@ public class ContRolling : MonoBehaviour {
     }
 
     public void FixedUpdate() {
-        stmachRoll.stateCur.OnFixedUpdate();
+        stmachRoll.stateCur.PseudoFixedUpdate();
     }
 
     public virtual void HandleRollingInput() {

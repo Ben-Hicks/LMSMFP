@@ -38,15 +38,15 @@ public class ContSwingShooter : MonoBehaviour {
         stmachSwing = new StateMachine<StSwing>(new StSwingReady(this));
     }
 
-    public void HandleSwingInput() {
+    public void PseudoUpdate() {
 
         //Let the current state decide what to do
-        stmachSwing.stateCur.HandleSwingInput();
+        stmachSwing.stateCur.PsuedoUpdate();
         
     }
 
     public void FixedUpdate() {
-        stmachSwing.stateCur.OnFixedUpdate();
+        stmachSwing.stateCur.PseudoFixedUpdate();
     }
 
     public void Detach() {
